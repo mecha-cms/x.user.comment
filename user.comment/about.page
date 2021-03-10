@@ -1,0 +1,10 @@
+---
+title: User’s Comment
+description: Comment administration in the front-end.
+author: Taufik Nurrohman
+type: Markdown
+version: 1.0.0
+
+use:
+  '.\lot\x\comment': 1
+...
