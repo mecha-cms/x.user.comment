@@ -7,4 +7,33 @@ version: 1.0.0
 
 use:
   '.\lot\x\comment': 1
+  '.\lot\x\user': 1
 ...
+
+Once installed, several task buttons will be available next to the reply button on every comment section.
+
+### Delete
+
+This task will remove the comment file permanently.
+
+### Hide
+
+This task will change the comment status to `-1`. Comment style for this status can be specified using this CSS selector:
+
+~~~ .css
+.comments .comment.comment-status\:-1 {
+  opacity: .5;
+}
+
+.comments .comment.comment-status\:-1 .comment-body {
+  font-style: italic;
+}
+~~~
+
+### Remove
+
+This task will change the comment file extension from `.page` to `.archive`, so that it will not appear on the page. Comment file will still exists as archive which you can permanently delete it at any time.
+
+### Show
+
+This task will change the comment status back to `1` or `2`.

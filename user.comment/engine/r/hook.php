@@ -6,22 +6,28 @@ function commentTasks($tasks, $page) {
         if (-1 !== $this->status) {
             $tasks['hide'] = [
                 0 => 'a',
-                1 => \i('Mark as Spam'),
+                1 => \i('Spam'),
                 2 => [
                     'href' => \strtr($page->url, [
-                        $url . '/' => $url . '/.comment-tasks/hide/' . \Guard::token('comment') . '/'
-                    ]) . '/' . $this->name . $url->query,
+                        $url . '/' => $url . '/.comment/'
+                    ]) . '/' . $this->name . $url->query('&', [
+                        'parent'=> false,
+                        'task' => 'hide'
+                    ]),
                     'title' => \i('Mark this comment as spam')
                 ]
             ];
         } else {
             $tasks['show'] = [
                 0 => 'a',
-                1 => \i('Mark as Not Spam'),
+                1 => \i('Not Spam'),
                 2 => [
                     'href' => \strtr($page->url, [
-                        $url . '/' => $url . '/.comment-tasks/show/' . \Guard::token('comment') . '/'
-                    ]) . '/' . $this->name . $url->query,
+                        $url . '/' => $url . '/.comment/'
+                    ]) . '/' . $this->name . $url->query('&', [
+                        'parent' => false,
+                        'task' => 'show'
+                    ]),
                     'title' => \i('Mark this comment as not spam')
                 ]
             ];
@@ -34,9 +40,12 @@ function commentTasks($tasks, $page) {
             1 => \i('Remove'),
             2 => [
                 'href' => \strtr($page->url, [
-                    $url . '/' => $url . '/.comment-tasks/remove/' . \Guard::token('comment') . '/'
-                ]) . '/' . $this->name . $url->query,
-                'title' => \i('Remove this comment.')
+                    $url . '/' => $url . '/.comment/'
+                ]) . '/' . $this->name . $url->query('&', [
+                    'parent' => false,
+                    'task' => 'remove'
+                ]),
+                'title' => \i('Remove this comment')
             ]
         ];
         $tasks['delete'] = [
@@ -44,8 +53,11 @@ function commentTasks($tasks, $page) {
             1 => \i('Delete'),
             2 => [
                 'href' => \strtr($page->url, [
-                    $url . '/' => $url . '/.comment-tasks/delete/' . \Guard::token('comment') . '/'
-                ]) . '/' . $this->name . $url->query,
+                    $url . '/' => $url . '/.comment/'
+                ]) . '/' . $this->name . $url->query('&', [
+                    'parent' => false,
+                    'task' => 'delete'
+                ]),
                 'title' => \i('Delete this comment permanently')
             ]
         ];
@@ -53,7 +65,7 @@ function commentTasks($tasks, $page) {
     return $tasks;
 }
 
-function commentsForm($fields) {
+function commentForm($fields) {
     extract($GLOBALS, \EXTR_SKIP);
     if ($author = \Is::user()) {
         unset($fields['author'], $fields['email'], $fields['link']);
@@ -68,7 +80,7 @@ function commentsForm($fields) {
     return $fields;
 }
 
-function commentsFormTasks($tasks) {
+function commentFormTasks($tasks) {
     extract($GLOBALS, \EXTR_SKIP);
     $comment_state = $state->x->comment ?? [];
     $user_state = $state->x->user ?? [];
@@ -88,6 +100,6 @@ function commentsFormTasks($tasks) {
     return $tasks;
 }
 
+\Hook::set('comment-form', __NAMESPACE__ . "\\commentForm", 10.1);
+\Hook::set('comment-form-tasks', __NAMESPACE__ . "\\commentFormTasks", 10.1);
 \Hook::set('comment-tasks', __NAMESPACE__ . "\\commentTasks", 10.1);
-\Hook::set('comments-form', __NAMESPACE__ . "\\commentsForm", 10.1);
-\Hook::set('comments-form-tasks', __NAMESPACE__ . "\\commentsFormTasks", 10.1);
