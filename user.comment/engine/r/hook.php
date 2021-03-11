@@ -2,33 +2,37 @@
 
 function commentTasks($tasks, $page) {
     extract($GLOBALS, \EXTR_SKIP);
+    $i = $url->i;
+    $i = $i ? ($state->x->comment->path ?? '/comment') . $i : "";
+    $link = \strtr($page->url, [
+        $url . '/' => $url . '/.comment/'
+    ]) . $i;
+    $name = $this->name;
     if (\Is::user() && 1 === $user->status) {
-        if (-1 !== $this->status) {
-            $tasks['hide'] = [
-                0 => 'a',
-                1 => \i('Spam'),
-                2 => [
-                    'href' => \strtr($page->url, [
-                        $url . '/' => $url . '/.comment/'
-                    ]) . '/' . $this->name . $url->query('&', [
-                        'parent'=> false,
-                        'task' => 'hide'
-                    ]),
-                    'title' => \i('Mark this comment as spam')
-                ]
-            ];
-        } else {
+        if (-1 === $this->status) {
             $tasks['show'] = [
                 0 => 'a',
                 1 => \i('Not Spam'),
                 2 => [
-                    'href' => \strtr($page->url, [
-                        $url . '/' => $url . '/.comment/'
-                    ]) . '/' . $this->name . $url->query('&', [
+                    'href' => $link . $url->query('&', [
+                        'comment' => $name,
                         'parent' => false,
                         'task' => 'show'
                     ]),
                     'title' => \i('Mark this comment as not spam')
+                ]
+            ];
+        } else {
+            $tasks['hide'] = [
+                0 => 'a',
+                1 => \i('Spam'),
+                2 => [
+                    'href' => $link . $url->query('&', [
+                        'comment' => $name,
+                        'parent'=> false,
+                        'task' => 'hide'
+                    ]),
+                    'title' => \i('Mark this comment as spam')
                 ]
             ];
         }
@@ -39,9 +43,8 @@ function commentTasks($tasks, $page) {
             0 => 'a',
             1 => \i('Remove'),
             2 => [
-                'href' => \strtr($page->url, [
-                    $url . '/' => $url . '/.comment/'
-                ]) . '/' . $this->name . $url->query('&', [
+                'href' => $link . $url->query('&', [
+                    'comment' => $name,
                     'parent' => false,
                     'task' => 'remove'
                 ]),
@@ -52,9 +55,8 @@ function commentTasks($tasks, $page) {
             0 => 'a',
             1 => \i('Delete'),
             2 => [
-                'href' => \strtr($page->url, [
-                    $url . '/' => $url . '/.comment/'
-                ]) . '/' . $this->name . $url->query('&', [
+                'href' => $link . $url->query('&', [
+                    'comment' => $name,
                     'parent' => false,
                     'task' => 'delete'
                 ]),

@@ -8,4 +8,4 @@ Release Notes
 
 ### main
 
- - Initial release.
+ - [x] Initial release.
