@@ -15,7 +15,7 @@ function commentTasks($tasks, $page) {
                 1 => \i('Not Spam'),
                 2 => [
                     'href' => $link . $url->query('&', [
-                        'comment' => $name,
+                        'name' => $name,
                         'parent' => false,
                         'task' => 'show'
                     ]),
@@ -28,7 +28,7 @@ function commentTasks($tasks, $page) {
                 1 => \i('Spam'),
                 2 => [
                     'href' => $link . $url->query('&', [
-                        'comment' => $name,
+                        'name' => $name,
                         'parent'=> false,
                         'task' => 'hide'
                     ]),
@@ -44,7 +44,7 @@ function commentTasks($tasks, $page) {
             1 => \i('Remove'),
             2 => [
                 'href' => $link . $url->query('&', [
-                    'comment' => $name,
+                    'name' => $name,
                     'parent' => false,
                     'task' => 'remove'
                 ]),
@@ -56,7 +56,7 @@ function commentTasks($tasks, $page) {
             1 => \i('Delete'),
             2 => [
                 'href' => $link . $url->query('&', [
-                    'comment' => $name,
+                    'name' => $name,
                     'parent' => false,
                     'task' => 'delete'
                 ]),

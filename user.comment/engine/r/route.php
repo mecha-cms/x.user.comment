@@ -14,21 +14,21 @@ function hit($any) {
         \Alert::error('Method not allowed.');
         ++$error;
     }
-    if (!$n = \Get::get('comment')) {
-        \Alert::error('Missing %s parameter in URL.', ['<code>comment</code>']);
+    if (!$name = \Get::get('name')) {
+        \Alert::error('Missing %s parameter in URL.', ['<code>name</code>']);
         ++$error;
     }
     if (!$task = \Get::get('task')) {
         \Alert::error('Missing %s parameter in URL.', ['<code>task</code>']);
         ++$error;
     }
-    if (!\is_file($file = \LOT . \DS . 'comment' . \DS . $any . \DS . $n . '.page')) {
+    if (!\is_file($file = \LOT . \DS . 'comment' . \DS . $any . \DS . $name . '.page')) {
         \Alert::error('Comment does not exist.');
         ++$error;
     }
     $anchor = $state->x->comment->anchor ?? [];
     $kick = $any . $i . $url->query('&', [
-        'comment' => false,
+        'name' => false,
         'parent' => false,
         'task' => false
     ]);
