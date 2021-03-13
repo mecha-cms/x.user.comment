@@ -10,7 +10,7 @@ use:
   '.\lot\x\user': 1
 ...
 
-Once installed, several task buttons will be available next to the reply button on every comment section.
+Once installed, several task buttons will be available next to the reply task on every comment section.
 
 ### Delete
 
@@ -23,10 +23,6 @@ This task will change the comment status to `-1`. Comment style for this status 
 ~~~ .css
 .comments .comment.comment-status\:-1 {
   opacity: .5;
-}
-
-.comments .comment.comment-status\:-1 .comment-body {
-  font-style: italic;
 }
 ~~~
 

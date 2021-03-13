@@ -42,6 +42,13 @@ function hit($any) {
     // Delete comment file permanently
     if ('delete' === $task) {
         if (\unlink($file)) {
+            foreach (\g(\Path::F($file), null, true) as $k => $v) {
+                if (1 === $v) {
+                    \unlink($k);
+                } else {
+                    \rmdir($k);
+                }
+            }
             \Alert::success('Comment deleted.');
         } else {
             \Alert::error('Could not delete comment due to file system error.');
@@ -52,11 +59,7 @@ function hit($any) {
     // Change comment status to `-1`
     if ('hide' === $task) {
         $data['status'] = -1;
-        if (
-            \is_readable($file) &&
-            \is_writable($file) &&
-            \is_int(\file_put_contents($file, \To::page($data)))
-        ) {
+        if (\is_writable($file) && \is_int(\file_put_contents($file, \To::page($data)))) {
             \Alert::success('Comment marked as spam.');
         } else {
             \Alert::error('Could not mark this comment as spam due to file system error.');
@@ -68,7 +71,7 @@ function hit($any) {
         if (\rename($file, \Path::F($file) . '.archive')) {
             \Alert::success('Comment removed.');
         } else {
-            \Alert::error('Could not remove comment due to the file system error.');
+            \Alert::error('Could not remove comment due to file system error.');
         }
         \Session::let('comment');
         \Guard::kick($kick . '#' . $anchor[0]);
@@ -76,11 +79,7 @@ function hit($any) {
     // Change comment status to `1` or `2`
     if ('show' === $task) {
         $data['status'] = \Is::user() === $author ? 1 : 2;
-        if (
-            \is_readable($file) &&
-            \is_writable($file) &&
-            \is_int(\file_put_contents($file, \To::page($data)))
-        ) {
+        if (\is_writable($file) && \is_int(\file_put_contents($file, \To::page($data)))) {
             \Alert::success('Comment marked as not spam.');
         } else {
             \Alert::error('Could not mark this comment as not spam due to file system error.');
