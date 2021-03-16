@@ -1,6 +1,6 @@
 <?php namespace x\user__comment;
 
-function commentTasks($tasks, $page) {
+function comment_tasks($tasks, $page) {
     extract($GLOBALS, \EXTR_SKIP);
     $i = $url->i;
     $i = $i ? ($state->x->comment->path ?? '/comment') . $i : "";
@@ -67,7 +67,7 @@ function commentTasks($tasks, $page) {
     return $tasks;
 }
 
-function commentForm($fields) {
+function comment_form($fields) {
     extract($GLOBALS, \EXTR_SKIP);
     if ($author = \Is::user()) {
         unset($fields['author'], $fields['email'], $fields['link']);
@@ -82,7 +82,7 @@ function commentForm($fields) {
     return $fields;
 }
 
-function commentFormTasks($tasks) {
+function comment_form_tasks($tasks) {
     extract($GLOBALS, \EXTR_SKIP);
     $comment_state = $state->x->comment ?? [];
     $user_state = $state->x->user ?? [];
@@ -102,6 +102,6 @@ function commentFormTasks($tasks) {
     return $tasks;
 }
 
-\Hook::set('comment-form', __NAMESPACE__ . "\\commentForm", 10.1);
-\Hook::set('comment-form-tasks', __NAMESPACE__ . "\\commentFormTasks", 10.1);
-\Hook::set('comment-tasks', __NAMESPACE__ . "\\commentTasks", 10.1);
+\Hook::set('comment-form', __NAMESPACE__ . "\\comment_form", 10.1);
+\Hook::set('comment-form-tasks', __NAMESPACE__ . "\\comment_form_tasks", 10.1);
+\Hook::set('comment-tasks', __NAMESPACE__ . "\\comment_tasks", 10.1);
