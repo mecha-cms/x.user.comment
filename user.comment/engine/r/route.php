@@ -38,7 +38,7 @@ function hit($any) {
     $comment = new \Comment($file);
     $author = $comment['author'];
     $id = $comment->id;
-    $data = \From::page(\file_get_contents($file));
+    $data = \From::page(\file_get_contents($file), true);
     // Delete comment file permanently
     if ('delete' === $task) {
         if (\unlink($file)) {
