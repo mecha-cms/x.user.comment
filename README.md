@@ -1,5 +1,5 @@
-User&rsquo;s Comment Extension for Mecha
-========================================
+User&rsquo;s Comment Extension for [Mecha](https://github.com/mecha-cms/mecha)
+==============================================================================
 
 > Comment administration in the front-end.
 
@@ -8,6 +8,6 @@ User&rsquo;s Comment Extension for Mecha
 Release Notes
 -------------
 
-### main
+### 1.0.0
 
- - [x] Initial release.
+ - Initial release.
