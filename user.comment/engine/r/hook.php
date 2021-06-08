@@ -93,7 +93,7 @@ function comment_form_tasks($tasks) {
             1 => \Is::user() ?: \i('Log In'),
             2 => [
                 'href' => $url . ($user_state->guard->path ?? $user_state->path) . $url->query('&', [
-                    'kick' => \trim($url->path, '/') . $url->query . '#' . $comment_state->anchor[0]
+                    'kick' => $url->path . $url->query . '#' . $comment_state->anchor[0]
                 ])
             ]
         ])),

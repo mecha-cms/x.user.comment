@@ -27,7 +27,7 @@ function hit($any) {
         ++$error;
     }
     $anchor = $state->x->comment->anchor ?? [];
-    $kick = $any . $i . $url->query('&', [
+    $kick = '/' . $any . $i . $url->query('&', [
         'name' => false,
         'parent' => false,
         'task' => false
