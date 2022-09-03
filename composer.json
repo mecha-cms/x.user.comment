@@ -1,0 +1,13 @@
+{
+  "description": "Comment administration in the front-end.",
+  "license": "GPL-3.0-or-later",
+  "name": "mecha-cms/x.user.comment",
+  "require": {
+    "mecha-cms/x.comment": "^2.0.0",
+    "mecha-cms/x.page": "^2.0.0",
+    "mecha-cms/x.user": "^2.0.0"
+  },
+  "suggest": {
+    "mecha-cms/x.comment.guard": "Install this extension to be able to automatically mark email and IP data as spam when a comment is being marked as spam."
+  }
+}
