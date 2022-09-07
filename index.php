@@ -2,7 +2,7 @@
 
 namespace x {
     // Loading asset(s)…
-    \Hook::set('content', function() use($state) {
+    \Hook::set('content', function () use ($state) {
         if (!empty($state->is->page) && !empty($state->has->page)) {
             $z = \defined("\\TEST") && \TEST ? '.' : '.min.';
             \class_exists("\\Asset") && \Asset::set(__DIR__ . \D . 'index' . $z . 'css', 20.2);
@@ -90,7 +90,7 @@ namespace x\user__comment {
     function route($content, $path, $query, $hash) {
         if ('GET' === $_SERVER['REQUEST_METHOD']) {
             // Remove URL query string associated with this extension from the redirect link
-            \Hook::set('kick', function($to) {
+            \Hook::set('kick', function ($to) {
                 if (false === \strpos($to, '?')) {
                     return $to;
                 }
