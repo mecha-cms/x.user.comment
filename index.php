@@ -1,15 +1,5 @@
 <?php
 
-namespace x {
-    // Loading asset(s)…
-    \Hook::set('content', function () use ($state) {
-        if (!empty($state->is->page) && !empty($state->has->page)) {
-            $z = \defined("\\TEST") && \TEST ? '.' : '.min.';
-            \class_exists("\\Asset") && \Asset::set(__DIR__ . \D . 'index' . $z . 'css', 20.2);
-        }
-    }, -1);
-}
-
 namespace x\user__comment {
     function comment($y) {
         \extract($GLOBALS, \EXTR_SKIP);
@@ -84,7 +74,49 @@ namespace x\user__comment {
         return $y;
     }
     function form($y) {
-        // TODO
+        \extract($GLOBALS, \EXTR_SKIP);
+        if (\Is::user()) {
+            unset($y[1]['author'], $y[1]['email'], $y[1]['link']);
+            $y[1] = [
+                'title' => [
+                    0 => 'h4',
+                    1 => \i('Comment as %s', ['<a href="' . $user->url . '" rel="nofollow" target="_blank">' . $user->author . '</a>'])
+                ]
+            ] + $y[1];
+            $y[1]['author'] = [
+                0 => 'input',
+                1 => false,
+                2 => [
+                    'name' => 'comment[author]',
+                    'type' => 'hidden',
+                    'value' => $user->user
+                ]
+            ];
+            $y[1]['tasks'][1][2][1]['user'] = [
+                0 => 'a',
+                1 => $user->user,
+                2 => [
+                    'href' => $url . '/' . \trim($state->x->user->guard->route ?? $state->x->user->route ?? 'user', '/') . '/' . $user->name . $url->query([
+                        'exit' => $user->token,
+                        'kick' => $url->path . $url->query . '#comment'
+                    ]),
+                    'style' => 'padding: 0 .5em;',
+                    'title' => \i('Exit')
+                ]
+            ];
+        } else {
+            $y[1]['tasks'][1][2][1]['user'] = [
+                0 => 'a',
+                1 => \i('Log In'),
+                2 => [
+                    'href' => $url . '/' . \trim($state->x->user->guard->route ?? $state->x->user->route ?? 'user', '/') . $url->query([
+                        'kick' => $url->path . $url->query . '#comment'
+                    ]),
+                    'style' => 'padding: 0 .5em;',
+                    'title' => \i('Enter')
+                ]
+            ];
+        }
         return $y;
     }
     function route($content, $path, $query, $hash) {
