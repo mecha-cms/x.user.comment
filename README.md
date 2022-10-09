@@ -5,4 +5,4 @@ User&rsquo;s Comment Extension for [Mecha](https://github.com/mecha-cms/mecha)
 
 Once installed, several task buttons will be available next to the reply task on every comment section.
 
-![User&rsquo;s Comment](index.png?v=2022-10-07)
+![User&rsquo;s Comment](index.png?v=2022-10-09)
