@@ -100,7 +100,7 @@ namespace x\user__comment {
                         'exit' => $user->token,
                         'kick' => $url->path . $url->query . '#comment'
                     ]),
-                    'style' => 'padding: 0 .5em;',
+                    'style' => 'padding: 0 0.5em;',
                     'title' => \i('Exit')
                 ]
             ];
@@ -112,7 +112,7 @@ namespace x\user__comment {
                     'href' => $url . '/' . \trim($state->x->user->guard->route ?? $state->x->user->route ?? 'user', '/') . $url->query([
                         'kick' => $url->path . $url->query . '#comment'
                     ]),
-                    'style' => 'padding: 0 .5em;',
+                    'style' => 'padding: 0 0.5em;',
                     'title' => \i('Enter')
                 ]
             ];
