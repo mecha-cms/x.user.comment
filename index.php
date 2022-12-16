@@ -187,7 +187,10 @@ namespace x\user__comment {
                                     }
                                 }
                             }
-                            if (isset($data['ip']) && \is_file($rows = \LOT . \D . 'x' . \D . 'comment.guard' . \D . 'ip.txt')) {
+                            if (!empty($data['i-p']) && empty($data['ip'])) {
+                                $data['ip'] = $data['i-p'];
+                            }
+                            if (isset($data['ip']) && \is_file($rows = \LOT . \D . 'x' . \D . 'comment.guard' . \D . 'i-p.txt')) {
                                 $exist = false;
                                 $test = $data['ip'];
                                 foreach (\stream($rows) as $row) {
@@ -201,6 +204,23 @@ namespace x\user__comment {
                                     // Add IP data to the black list
                                     if (false !== \file_put_contents($rows, $n . $test, \FILE_APPEND | \LOCK_EX)) {
                                         $can_alert && \Alert::info('IP address %s has been added to the black list.', ['<em>' . $test . '</em>']);
+                                    }
+                                }
+                            }
+                            if (isset($data['link']) && \is_file($rows = \LOT . \D . 'x' . \D . 'comment.guard' . \D . 'link.txt')) {
+                                $exist = false;
+                                $test = $data['link'];
+                                foreach (\stream($rows) as $row) {
+                                    if ($test === \trim($row)) {
+                                        $exist = true;
+                                        break;
+                                    }
+                                }
+                                if (!$exist) {
+                                    $n = 0 === \filesize($rows) ? "" : "\n";
+                                    // Add link data to the black list
+                                    if (false !== \file_put_contents($rows, $n . $test, \FILE_APPEND | \LOCK_EX)) {
+                                        $can_alert && \Alert::info('Link address %s has been added to the black list.', ['<em>' . $test . '</em>']);
                                     }
                                 }
                             }
@@ -233,7 +253,10 @@ namespace x\user__comment {
                                     }
                                 }
                             }
-                            if (isset($data['ip']) && \is_file($rows = \LOT . \D . 'x' . \D . 'comment.guard' . \D . 'ip.txt')) {
+                            if (!empty($data['i-p']) && empty($data['ip'])) {
+                                $data['ip'] = $data['i-p'];
+                            }
+                            if (isset($data['ip']) && \is_file($rows = \LOT . \D . 'x' . \D . 'comment.guard' . \D . 'i-p.txt')) {
                                 if (\filesize($rows) > 0) {
                                     $list = [];
                                     $test = $data['ip'];
@@ -245,6 +268,21 @@ namespace x\user__comment {
                                     }
                                     if (false !== \file_put_contents($rows, \implode("\n", $list), \LOCK_EX)) {
                                         $can_alert && \Alert::info('IP address %s has been removed from the black list.', ['<em>' . $test . '</em>']);
+                                    }
+                                }
+                            }
+                            if (isset($data['link']) && \is_file($rows = \LOT . \D . 'x' . \D . 'comment.guard' . \D . 'link.txt')) {
+                                if (\filesize($rows) > 0) {
+                                    $list = [];
+                                    $test = $data['link'];
+                                    foreach (\stream($rows) as $row) {
+                                        if ($test === ($row = \trim($row))) {
+                                            continue;
+                                        }
+                                        $list[] = $row;
+                                    }
+                                    if (false !== \file_put_contents($rows, \implode("\n", $list), \LOCK_EX)) {
+                                        $can_alert && \Alert::info('Link address %s has been removed from the black list.', ['<em>' . $test . '</em>']);
                                     }
                                 }
                             }
@@ -282,9 +320,8 @@ namespace x\user__comment {
                 $can_alert && \Alert::error('Invalid comment task.');
             }
         }
-        // Proceed to the default comment route!
-        // You should get an error message stating that method is not allowed.
-        // This is because the default comment route only accepts `POST` request.
+        // Proceed to the default comment route from here. You should get an error message stating that method is not
+        // allowed. This is because the default comment route only accepts `POST` request.
         return $content;
     }
     \Hook::set('route.comment', __NAMESPACE__ . "\\route", 0);

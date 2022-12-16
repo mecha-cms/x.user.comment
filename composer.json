@@ -4,10 +4,10 @@
   "name": "mecha-cms/x.user.comment",
   "require": {
     "mecha-cms/x.comment": "^2.0.0",
-    "mecha-cms/x.page": "^2.0.0",
+    "mecha-cms/x.page": "^3.0.0",
     "mecha-cms/x.user": "^2.0.0"
   },
   "suggest": {
-    "mecha-cms/x.comment.guard": "Install this extension to be able to automatically mark email and IP address as spam when a comment is being marked as spam."
+    "mecha-cms/x.comment.guard": "Install this extension to be able to automatically mark email, link, and IP address as spam when a comment is being marked as spam."
   }
 }
