@@ -10,6 +10,32 @@ namespace x\user__comment {
         ]);
         if (\Is::user(1)) {
             if (isset($y[1]['footer'][1]['tasks'][1])) {
+                // TODO: Add `edit` task only to comment(s) that have no children
+                // $y[1]['footer'][1]['tasks'][1]['edit'] = [
+                //     0 => 'li',
+                //     1 => [
+                //         'link' => empty($this->comments->count()) ? [
+                //             0 => 'a',
+                //             1 => \i('Edit'),
+                //             2 => [
+                //                 'href' => $to . $url->query([
+                //                     'name' => $name,
+                //                     'parent' => null,
+                //                     'task' => 'edit',
+                //                     'token' => \token('comment')
+                //                 ]),
+                //                 'title' => \i('Edit this comment')
+                //             ]
+                //         ] : [
+                //             0 => 'span',
+                //             1 => \i('Edit'),
+                //             2 => [
+                //                 'aria-disabled' => 'true',
+                //                 'role' => 'link'
+                //             ]
+                //         ]
+                //     ]
+                // ];
                 $spam = -1 === $this->status;
                 $y[1]['footer'][1]['tasks'][1][$spam ? 'show' : 'hide'] = [
                     0 => 'li',
@@ -162,6 +188,13 @@ namespace x\user__comment {
             // All passed the check(s)!
             if (!$error) {
                 $has_comment_guard = null !== \State::get("x.comment\\.guard");
+                // Edit comment
+                if ('edit' === $task) {
+                    $comment = new \Comment($file);
+                    $data = \From::page(\file_get_contents($file), true);
+                    // TODO: Add edit action
+                    \kick($comment->url);
+                }
                 // Change comment status to `-1`
                 if ('hide' === $task) {
                     $comment = new \Comment($file);
