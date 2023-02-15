@@ -30,8 +30,7 @@ namespace x\user__comment {
                 //             0 => 'span',
                 //             1 => \i('Edit'),
                 //             2 => [
-                //                 'aria-disabled' => 'true',
-                //                 'role' => 'link'
+                //                 'aria-disabled' => 'true'
                 //             ]
                 //         ]
                 //     ]
