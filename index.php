@@ -1,6 +1,6 @@
 <?php
 
-namespace x\user__comment {
+namespace x\user__comment\y {
     function comment($y) {
         \extract($GLOBALS, \EXTR_SKIP);
         $name = $this->name;
@@ -144,6 +144,11 @@ namespace x\user__comment {
         }
         return $y;
     }
+    \Hook::set('y.comment', __NAMESPACE__ . "\\comment", 10);
+    \Hook::set('y.form.comment', __NAMESPACE__ . "\\form", 10);
+}
+
+namespace x\user__comment {
     function route($content, $path, $query, $hash) {
         if ('GET' === $_SERVER['REQUEST_METHOD']) {
             // Remove URL query string associated with this extension from the redirect link
@@ -357,6 +362,4 @@ namespace x\user__comment {
         return $content;
     }
     \Hook::set('route.comment', __NAMESPACE__ . "\\route", 0);
-    \Hook::set('y.comment', __NAMESPACE__ . "\\comment", 10);
-    \Hook::set('y.form.comment', __NAMESPACE__ . "\\form", 10);
 }
