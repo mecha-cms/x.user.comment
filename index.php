@@ -46,14 +46,14 @@ function route__comment($content, $path, $query, $hash) {
             // Edit comment
             if ('edit' === $task) {
                 $comment = new \Comment($file);
-                $data = \From::page(\file_get_contents($file), true);
+                $data = \From::page(\file_get_contents($file));
                 // TODO: Add edit action
                 \kick($comment->url);
             }
             // Change comment status to `-1`
             if ('hide' === $task) {
                 $comment = new \Comment($file);
-                $data = \From::page(\file_get_contents($file), true);
+                $data = \From::page(\file_get_contents($file));
                 $data['status'] = -1;
                 if (false !== \file_put_contents($file, \To::page($data))) {
                     $can_alert && \Alert::success('Comment marked as spam.');
@@ -121,7 +121,7 @@ function route__comment($content, $path, $query, $hash) {
             // Change comment status to `1` or `2`
             if ('show' === $task) {
                 $comment = new \Comment($file);
-                $data = \From::page(\file_get_contents($file), true);
+                $data = \From::page(\file_get_contents($file));
                 $data['status'] = \Is::user() === $comment['author'] ? 1 : 2;
                 if (false !== \file_put_contents($file, \To::page($data))) {
                     $can_alert && \Alert::success('Comment marked as not spam.');
