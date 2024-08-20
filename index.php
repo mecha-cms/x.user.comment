@@ -214,7 +214,7 @@ function route__comment($content, $path, $query, $hash) {
 }
 
 function y__comment($y) {
-    \extract($GLOBALS, \EXTR_SKIP);
+    \extract(\lot(), \EXTR_SKIP);
     $name = $this->name;
     $route = \trim($state->x->comment->route ?? 'comment', '/');
     $to = \strtr(\strtok($this->url, '?&#'), [
@@ -312,7 +312,7 @@ function y__comment($y) {
 }
 
 function y__form__comment($y) {
-    \extract($GLOBALS, \EXTR_SKIP);
+    \extract(\lot(), \EXTR_SKIP);
     if (\Is::user()) {
         unset($y[1]['author'], $y[1]['email'], $y[1]['link']);
         $y[1] = [
