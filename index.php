@@ -217,9 +217,7 @@ function y__comment($y) {
     \extract(\lot(), \EXTR_SKIP);
     $name = $this->name;
     $route = \trim($state->x->comment->route ?? 'comment', '/');
-    $to = \strtr(\strtok($this->url, '?&#'), [
-        $url . '/' => $url . '/comment/'
-    ]);
+    $to = '/' . $route . $this->page->route;
     if (\Is::user(1)) {
         if (isset($y[1]['footer'][1]['tasks'][1])) {
             // TODO: Add `edit` task only to comment(s) that have no children
@@ -267,7 +265,7 @@ function y__comment($y) {
                 ]
             ];
             // Add `delete` and `remove` task(s) only to comment(s) that have no children
-            if (!empty($this->comments->count())) {
+            if ($this->children && $this->children->count()) {
                 return $y;
             }
             $y[1]['footer'][1]['tasks'][1]['remove'] = [
@@ -325,7 +323,7 @@ function y__form__comment($y) {
             0 => 'input',
             1 => false,
             2 => [
-                'name' => 'comment[author]',
+                'name' => 'author',
                 'type' => 'hidden',
                 'value' => $user->user
             ]

@@ -6,7 +6,7 @@ color: '#f9481c'
 image: /lot/x/user.comment/index.png
 author: Taufik Nurrohman
 type: Markdown
-version: 1.2.0
+version: 2.0.0
 ...
 
 Once installed, several task buttons will be available next to the reply task on every comment section.
