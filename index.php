@@ -122,7 +122,7 @@ function route__comment($content, $path, $query, $hash) {
             if ('show' === $task) {
                 $comment = new \Comment($file);
                 $data = \From::page(\file_get_contents($file));
-                $data['status'] = \Is::user() === $comment['author'] ? 1 : 2;
+                $data['status'] = isset($user) && $user->user === $comment['author'] ? 1 : 2;
                 if (false !== \file_put_contents($file, \To::page($data))) {
                     $can_alert && \Alert::success('Comment marked as not spam.');
                     if ($has_comment_guard) {
@@ -218,7 +218,7 @@ function y__comment($y) {
     $name = $this->name;
     $route = \trim($state->x->comment->route ?? 'comment', '/');
     $to = '/' . $route . $this->page->route;
-    if (\Is::user(1)) {
+    if (isset($user) && $user->exist && 1 === $user->status) {
         if (isset($y[1]['footer'][1]['tasks'][1])) {
             // TODO: Add `edit` task only to comment(s) that have no children
             // $y[1]['footer'][1]['tasks'][1]['edit'] = [
@@ -311,7 +311,7 @@ function y__comment($y) {
 
 function y__form__comment($y) {
     \extract(\lot(), \EXTR_SKIP);
-    if (\Is::user()) {
+    if (isset($user) && $user->exist) {
         unset($y[1]['author'], $y[1]['email'], $y[1]['link']);
         $y[1] = [
             'title' => [
